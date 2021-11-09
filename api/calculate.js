@@ -24,7 +24,7 @@ export default function calculate(req, res) {
     tipPercent = parseFloat(tipPercent);
     people = parseInt(people);
 
-    if (bill && tipPercent && people) {
+    if (bill && !isNaN(tipPercent) && people) {
 
 
         result = {
