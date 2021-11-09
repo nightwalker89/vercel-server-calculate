@@ -1,6 +1,7 @@
 export default function calculate(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.statusCode = 200;
-    const { bill, tipPercent, people } = req.query;
+    let { bill, tipPercent, people } = req.query;
 
 
     const calTotal = function () {
@@ -9,16 +10,27 @@ export default function calculate(req, res) {
         return result;
     };
 
+    const calAmount = function () {
+        let result = 0;
+        result = (bill * (tipPercent / 100)) / people;
+        return result;
+    };
+
     let result = {
         result: false
     }
 
+    bill = parseFloat(bill);
+    tipPercent = parseFloat(tipPercent);
+    people = parseInt(people);
+
     if (bill && tipPercent && people) {
-        const total = calTotal();
+
+
         result = {
             result: true,
             total: calTotal(),
-            amount: total / people
+            amount: calAmount()
         }
     }
 
